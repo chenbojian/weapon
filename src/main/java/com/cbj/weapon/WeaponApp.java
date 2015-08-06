@@ -5,12 +5,12 @@ public class WeaponApp {
         Solider playerA = new Solider("张三", 100, 12, 0, "超级大木棒");
         Player playerB = new Player("李四", 101, 11, 0);
         while (true) {
-            System.out.println(playerA.attack(playerB));
+            playerA.attack(playerB);
             if (playerB.isDead()) {
                 System.out.println(playerB.getName() + "被打败了!");
                 break;
             }
-            System.out.println(playerB.attack(playerA));
+            playerB.attack(playerA);
             if (playerA.isDead()) {
                 System.out.println(playerA.getName() + "被打败了!");
                 break;

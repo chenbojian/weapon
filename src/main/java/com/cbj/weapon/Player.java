@@ -14,13 +14,13 @@ public class Player {
         this.defenseValue = defenseValue;
     }
 
-    public String attack(Player damagedPlayer) {
+    public void attack(Player damagedPlayer) {
         damagedPlayer.damaged(this.getAttackValue());
-        return "普通人" + this.getName() + Player.damageInfo(this, damagedPlayer);
+        System.out.println(this.attackMessage(damagedPlayer));
     }
 
-    public static String damageInfo(Player attackPlayer, Player damagedPlayer) {
-        return "攻击了" + damagedPlayer.getName() + "," +
+    public String attackMessage(Player damagedPlayer) {
+        return "普通人" + this.getName() + "攻击了" + damagedPlayer.getName() + "," +
                 damagedPlayer.getName() + "受到了" + damagedPlayer.getDamagedValue() + "点伤害," +
                 damagedPlayer.getName() + "剩余生命:" + damagedPlayer.getLifeValue();
     }

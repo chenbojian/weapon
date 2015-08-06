@@ -1,6 +1,10 @@
 package com.cbj.weapon;
 
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 public class Player {
     private int lifeValue;
     private String name;
@@ -8,7 +12,7 @@ public class Player {
     private int damagedValue;
     private int defenseValue;
     private NegativeEffect negativeEffect;
-    private int attackCount;
+    protected int attackCount;
 
     public Player(String name, int lifeValue, int attackValue, int defenseValue) {
         this.lifeValue = lifeValue;
@@ -19,21 +23,22 @@ public class Player {
     }
 
     public void attack(Player damagedPlayer) {
-        this.attackCount++;
-        if (!this.getNegativeEffect().isAttackable()) {
+        attackCount++;
+        if (!getNegativeEffect().isAttackable()) {
+            updateNegativeEffectStatus();
             return;
         }
         updateNegativeEffectStatus();
-        damagedPlayer.damaged(this.getAttackValue());
-        System.out.println(this.attackMessage(damagedPlayer));
+        damagedPlayer.damaged(getAttackValue());
+        System.out.println(String.join(",", attackMessage(damagedPlayer)));
     }
 
-    private void updateNegativeEffectStatus() {
+    protected void updateNegativeEffectStatus() {
         if (negativeEffect.getClass().equals(NegativeEffect.class)) {
             return;
         }
-        negativeEffect.reduceDurationCount();
         damaged(negativeEffect.getAttackValue());
+        negativeEffect.reduceDurationCount();
         System.out.println("-" + negativeEffect.getAttackValue());
         System.out.println("剩余次数" + negativeEffect.getDurationCount());
         if (negativeEffect.getDurationCount() == 0) {
@@ -41,10 +46,12 @@ public class Player {
         }
     }
 
-    public String attackMessage(Player damagedPlayer) {
-        return "普通人" + this.getName() + "攻击了" + damagedPlayer.getName() + "," +
-                damagedPlayer.getName() + "受到了" + damagedPlayer.getDamagedValue() + "点伤害," +
-                damagedPlayer.getName() + "剩余生命:" + damagedPlayer.getLifeValue();
+    public List<String> attackMessage(Player damagedPlayer) {
+        List<String> attackMessages = new ArrayList<>();
+        attackMessages.add(getProfessionAndName() + "攻击了" + damagedPlayer.getProfessionAndName());
+        attackMessages.add(damagedPlayer.getName() + "受到了" + damagedPlayer.getDamagedValue() + "点伤害");
+        attackMessages.add(damagedPlayer.getName() + "剩余生命:" + damagedPlayer.getLifeValue());
+        return attackMessages;
     }
 
     public void damaged(int attackValue) {
@@ -56,7 +63,6 @@ public class Player {
         return this.lifeValue <= 0;
     }
 
-
     public int getLifeValue() {
         return lifeValue;
     }
@@ -65,6 +71,7 @@ public class Player {
     public String getName() {
         return name;
     }
+
 
     public int getAttackValue() {
         return attackValue;
@@ -102,12 +109,15 @@ public class Player {
         }
     }
 
-    public String negativeEffectInformation() {
-        return this.getNegativeEffect().getName().equals("") ?
-                "" : this.getName() + this.getNegativeEffect().getName() + ",";
-    }
-
     public int getAttackCount() {
         return attackCount;
+    }
+
+    public String getProfession() {
+        return "普通人";
+    }
+
+    private String getProfessionAndName() {
+        return getProfession() + getName();
     }
 }

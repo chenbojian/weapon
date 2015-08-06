@@ -1,5 +1,7 @@
 package com.cbj.weapon;
 
+import java.util.List;
+
 public class Solider extends Player {
 
     private final Weapon weapon;
@@ -11,21 +13,36 @@ public class Solider extends Player {
 
     @Override
     public void attack(Player damagedPlayer) {
-        this.weapon.clearStatus();
-        if (Math.random() < 0.1) {
-            this.weapon.setDamagedPlayerEffected(true);
+        attackCount++;
+        weapon.clearStatus();
+        if (!getNegativeEffect().isAttackable()) {
+            updateNegativeEffectStatus();
+            return;
+        }
+        updateNegativeEffectStatus();
+        damagedPlayer.damaged(getAttackValue());
+        if (getAttackCount() == 1) {
+            weapon.setDamagedPlayerEffected(true);
             damagedPlayer.setNegativeEffect(weapon.getNegativeEffect());
         }
-        super.attack(damagedPlayer);
+        System.out.println(String.join(",", attackMessage(damagedPlayer)));
     }
 
     @Override
-    public String attackMessage(Player damagedPlayer) {
-        return "战士" + this.getName() + "用" + this.getWeapon().getName() + "攻击了" + damagedPlayer.getName() + "," +
-                damagedPlayer.getName() + "受到了" + damagedPlayer.getDamagedValue() + "点伤害," +
-                (this.weapon.isDamagedPlayerEffected() ? damagedPlayer.negativeEffectInformation() : "") +
-                damagedPlayer.getName() + "剩余生命:" + damagedPlayer.getLifeValue();
+    public List<String> attackMessage(Player damagedPlayer) {
+        List<String> attackMessages = super.attackMessage(damagedPlayer);
+        if (weapon.isDamagedPlayerEffected()) {
+            attackMessages.add(attackMessages.size() - 1,
+                    damagedPlayer.getName() + damagedPlayer.getNegativeEffect().getName());
+        }
+        return attackMessages;
     }
+
+    @Override
+    public String getProfession() {
+        return "战士";
+    }
+
 
     public Weapon getWeapon() {
         return weapon;

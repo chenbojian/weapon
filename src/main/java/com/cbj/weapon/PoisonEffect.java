@@ -3,15 +3,10 @@ package com.cbj.weapon;
 public class PoisonEffect extends NegativeEffect {
 
     public PoisonEffect() {
-        this.setAttackable(true);
-        this.setName("中毒了");
-        this.setDurationCount(2);
-        this.setAttackValue(3);
-    }
-
-    @Override
-    public void reduceDurationCount() {
-        this.durationCount --;
+        setAttackable(true);
+        setName("中毒了");
+        setDurationCount(2);
+        setAttackValue(3);
     }
 
     @Override

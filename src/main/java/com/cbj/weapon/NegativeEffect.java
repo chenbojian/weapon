@@ -3,14 +3,13 @@ package com.cbj.weapon;
 public class NegativeEffect {
 
     private boolean attackable;
-
     private String name;
     protected int durationCount;
     private int attackValue;
 
     public NegativeEffect() {
-        this.attackable = true;
-        this.name = "";
+        attackable = true;
+        name = "";
     }
 
     public boolean isAttackable() {
@@ -38,6 +37,7 @@ public class NegativeEffect {
     }
 
     public void reduceDurationCount() {
+        durationCount--;
     }
 
     public NegativeEffect copy() {

@@ -14,10 +14,11 @@ public class Player {
         this.name = name;
         this.attackValue = attackValue;
         this.defenseValue = defenseValue;
+        this.negativeEffect = new NegativeEffect();
     }
 
     public void attack(Player damagedPlayer) {
-        if (this.getNegativeEffect() != null && !this.getNegativeEffect().isAttackable()) {
+        if (!this.getNegativeEffect().isAttackable()) {
             //ToDo
             return;
         }
@@ -79,6 +80,15 @@ public class Player {
     }
 
     public void setNegativeEffect(NegativeEffect negativeEffect) {
-        this.negativeEffect = negativeEffect;
+        if (this.negativeEffect.getClass().equals(negativeEffect.getClass())) {
+            //ToDo
+        } else {
+            this.negativeEffect = negativeEffect;
+        }
+    }
+
+    public String negativeEffectInformation() {
+        return this.getNegativeEffect().getName().equals("") ?
+                "" : this.getName() + this.getNegativeEffect().getName() + ",";
     }
 }

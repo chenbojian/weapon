@@ -1,16 +1,24 @@
 package com.cbj.weapon;
 
-/**
- * Created by chenbojian on 8/6/15.
- */
 public class Weapon {
-    private final String name;
 
-    public Weapon(String name) {
+    private final String name;
+    private NegativeEffect negativeEffect;
+
+    public Weapon(String name, NegativeEffect negativeEffect) {
         this.name = name;
+        this.negativeEffect = negativeEffect;
     }
 
     public String getName() {
         return name;
+    }
+
+    public NegativeEffect getNegativeEffect() {
+        return negativeEffect;
+    }
+
+    public void setNegativeEffect(NegativeEffect negativeEffect) {
+        this.negativeEffect = negativeEffect;
     }
 }

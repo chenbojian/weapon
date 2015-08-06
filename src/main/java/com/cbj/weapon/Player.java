@@ -1,11 +1,13 @@
 package com.cbj.weapon;
 
+
 public class Player {
     private int lifeValue;
     private String name;
     private int attackValue;
     private int damagedValue;
     private int defenseValue;
+    private NegativeEffect negativeEffect;
 
     public Player(String name, int lifeValue, int attackValue, int defenseValue) {
         this.lifeValue = lifeValue;
@@ -15,6 +17,10 @@ public class Player {
     }
 
     public void attack(Player damagedPlayer) {
+        if (this.getNegativeEffect() != null && !this.getNegativeEffect().isAttackable()) {
+            //ToDo
+            return;
+        }
         damagedPlayer.damaged(this.getAttackValue());
         System.out.println(this.attackMessage(damagedPlayer));
     }
@@ -66,5 +72,13 @@ public class Player {
 
     public void setDefenseValue(int defenseValue) {
         this.defenseValue = defenseValue;
+    }
+
+    public NegativeEffect getNegativeEffect() {
+        return negativeEffect;
+    }
+
+    public void setNegativeEffect(NegativeEffect negativeEffect) {
+        this.negativeEffect = negativeEffect;
     }
 }

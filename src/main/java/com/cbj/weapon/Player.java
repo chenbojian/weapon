@@ -5,22 +5,28 @@ public class Player {
     private String name;
     private int attackValue;
     private int damagedValue;
+    private int defenseValue;
 
-    public Player(String name, int lifeValue, int attackValue) {
+    public Player(String name, int lifeValue, int attackValue, int defenseValue) {
         this.lifeValue = lifeValue;
         this.name = name;
         this.attackValue = attackValue;
+        this.defenseValue = defenseValue;
     }
 
-    public void attack(Player damagedPlayer) {
+    public String attack(Player damagedPlayer) {
         damagedPlayer.damaged(this.getAttackValue());
-        System.out.println(this.getName() + "攻击了" + damagedPlayer.getName() + "," +
-                damagedPlayer.getName() + "受到了" + damagedPlayer.getDamagedValue() + "点伤害," +
-                damagedPlayer.getName() + "剩余生命:" + damagedPlayer.getLifeValue());
+        return "普通人" + this.getName() + Player.damageInfo(this, damagedPlayer);
     }
 
-    private void damaged(int attackValue) {
-        this.damagedValue = attackValue;
+    public static String damageInfo(Player attackPlayer, Player damagedPlayer) {
+        return "攻击了" + damagedPlayer.getName() + "," +
+                damagedPlayer.getName() + "受到了" + damagedPlayer.getDamagedValue() + "点伤害," +
+                damagedPlayer.getName() + "剩余生命:" + damagedPlayer.getLifeValue();
+    }
+
+    public void damaged(int attackValue) {
+        this.damagedValue = attackValue - this.defenseValue;
         this.lifeValue -= attackValue;
     }
 
@@ -52,5 +58,13 @@ public class Player {
 
     public void setDamagedValue(int damagedValue) {
         this.damagedValue = damagedValue;
+    }
+
+    public int getDefenseValue() {
+        return defenseValue;
+    }
+
+    public void setDefenseValue(int defenseValue) {
+        this.defenseValue = defenseValue;
     }
 }

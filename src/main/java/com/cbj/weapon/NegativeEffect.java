@@ -38,4 +38,8 @@ public class NegativeEffect {
 
     public void reduceDurationCount() {
     }
+
+    public NegativeEffect copy() {
+        return new NegativeEffect();
+    }
 }

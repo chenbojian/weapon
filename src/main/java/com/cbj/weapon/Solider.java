@@ -12,7 +12,7 @@ public class Solider extends Player {
     @Override
     public void attack(Player damagedPlayer) {
         this.weapon.clearStatus();
-        if (this.getAttackCount() == 1) {
+        if (Math.random() < 0.3) {
             this.weapon.setDamagedPlayerEffected(true);
             damagedPlayer.setNegativeEffect(weapon.getNegativeEffect());
         }

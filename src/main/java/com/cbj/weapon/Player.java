@@ -94,7 +94,7 @@ public class Player {
         if (this.negativeEffect.getClass().equals(negativeEffect.getClass())) {
             //ToDo
         } else {
-            this.negativeEffect = negativeEffect;
+            this.negativeEffect = negativeEffect.copy();
         }
     }
 

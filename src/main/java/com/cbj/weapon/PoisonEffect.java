@@ -13,4 +13,9 @@ public class PoisonEffect extends NegativeEffect {
         this.durationCount --;
     }
 
+    @Override
+    public NegativeEffect copy() {
+        return new PoisonEffect();
+    }
+
 }

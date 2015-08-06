@@ -8,6 +8,7 @@ public class Player {
     private int damagedValue;
     private int defenseValue;
     private NegativeEffect negativeEffect;
+    private int attackCount;
 
     public Player(String name, int lifeValue, int attackValue, int defenseValue) {
         this.lifeValue = lifeValue;
@@ -18,12 +19,22 @@ public class Player {
     }
 
     public void attack(Player damagedPlayer) {
+        this.attackCount++;
         if (!this.getNegativeEffect().isAttackable()) {
-            //ToDo
             return;
         }
+        updateNegativeEffectStatus();
         damagedPlayer.damaged(this.getAttackValue());
         System.out.println(this.attackMessage(damagedPlayer));
+    }
+
+    private void updateNegativeEffectStatus() {
+        this.getNegativeEffect().reduceDurationCount();
+        if (!this.getNegativeEffect().getClass().equals(NegativeEffect.class) &&
+                this.getNegativeEffect().getDurationCount() == 0) {
+            System.out.println("解毒了");
+            this.setNegativeEffect(new NegativeEffect());
+        }
     }
 
     public String attackMessage(Player damagedPlayer) {
@@ -90,5 +101,9 @@ public class Player {
     public String negativeEffectInformation() {
         return this.getNegativeEffect().getName().equals("") ?
                 "" : this.getName() + this.getNegativeEffect().getName() + ",";
+    }
+
+    public int getAttackCount() {
+        return attackCount;
     }
 }

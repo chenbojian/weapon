@@ -11,7 +11,9 @@ public class Solider extends Player {
 
     @Override
     public void attack(Player damagedPlayer) {
-        damagedPlayer.setNegativeEffect(weapon.getNegativeEffect());
+        if (this.getAttackCount() == 1) {
+            damagedPlayer.setNegativeEffect(weapon.getNegativeEffect());
+        }
         super.attack(damagedPlayer);
     }
 

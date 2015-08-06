@@ -5,7 +5,7 @@ public class PoisonEffect extends NegativeEffect {
     public PoisonEffect() {
         this.setAttackable(true);
         this.setName("中毒了");
-        this.setDurationCount(1);
+        this.setDurationCount(2);
     }
 
     @Override

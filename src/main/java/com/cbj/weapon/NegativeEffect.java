@@ -42,4 +42,8 @@ public class NegativeEffect {
     public NegativeEffect copy() {
         return new NegativeEffect();
     }
+
+    public void addDurationCount(int durationCount) {
+        this.durationCount += durationCount + 1;
+    }
 }

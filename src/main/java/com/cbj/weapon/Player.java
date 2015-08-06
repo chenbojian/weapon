@@ -29,10 +29,12 @@ public class Player {
     }
 
     private void updateNegativeEffectStatus() {
-        this.getNegativeEffect().reduceDurationCount();
-        if (!this.getNegativeEffect().getClass().equals(NegativeEffect.class) &&
-                this.getNegativeEffect().getDurationCount() == 0) {
-            System.out.println("解毒了");
+        if (this.negativeEffect.getClass().equals(NegativeEffect.class)) {
+            return;
+        }
+        this.negativeEffect.reduceDurationCount();
+        System.out.println("剩余次数" + this.negativeEffect.getDurationCount());
+        if (this.negativeEffect.getDurationCount() == 0) {
             this.setNegativeEffect(new NegativeEffect());
         }
     }
@@ -92,7 +94,7 @@ public class Player {
 
     public void setNegativeEffect(NegativeEffect negativeEffect) {
         if (this.negativeEffect.getClass().equals(negativeEffect.getClass())) {
-            //ToDo
+            this.negativeEffect.addDurationCount(negativeEffect.getDurationCount());
         } else {
             this.negativeEffect = negativeEffect.copy();
         }

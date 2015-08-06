@@ -2,7 +2,7 @@ package com.cbj.weapon;
 
 public class WeaponApp {
     public static void main(String[] args) {
-        Solider playerA = new Solider("张三", 100, 12, 0, "超级大木棒");
+        Solider playerA = new Solider("张三", 100, 12, 0, new Weapon("超级大木棒"));
         Player playerB = new Player("李四", 101, 11, 0);
         while (true) {
             playerA.attack(playerB);

@@ -6,6 +6,7 @@ public class NegativeEffect {
 
     private String name;
     protected int durationCount;
+    private int attackValue;
 
     public NegativeEffect() {
         this.attackable = true;
@@ -45,5 +46,13 @@ public class NegativeEffect {
 
     public void addDurationCount(int durationCount) {
         this.durationCount += durationCount + 1;
+    }
+
+    public int getAttackValue() {
+        return attackValue;
+    }
+
+    public void setAttackValue(int attackValue) {
+        this.attackValue = attackValue;
     }
 }

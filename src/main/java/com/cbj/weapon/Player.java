@@ -29,13 +29,15 @@ public class Player {
     }
 
     private void updateNegativeEffectStatus() {
-        if (this.negativeEffect.getClass().equals(NegativeEffect.class)) {
+        if (negativeEffect.getClass().equals(NegativeEffect.class)) {
             return;
         }
-        this.negativeEffect.reduceDurationCount();
-        System.out.println("剩余次数" + this.negativeEffect.getDurationCount());
-        if (this.negativeEffect.getDurationCount() == 0) {
-            this.setNegativeEffect(new NegativeEffect());
+        negativeEffect.reduceDurationCount();
+        damaged(negativeEffect.getAttackValue());
+        System.out.println("-" + negativeEffect.getAttackValue());
+        System.out.println("剩余次数" + negativeEffect.getDurationCount());
+        if (negativeEffect.getDurationCount() == 0) {
+            setNegativeEffect(new NegativeEffect());
         }
     }
 
